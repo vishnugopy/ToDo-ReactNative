@@ -1,6 +1,8 @@
 import React from 'react';
 import { View , Text , TouchableOpacity , StyleSheet , Image , Dimensions , TouchableHighlight , TouchableWithoutFeedback , ScrollView , Alert } from 'react-native';
 
+
+
 const Task = (props) => {
 
     return (
@@ -37,8 +39,8 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
     },
     square:{
-        width:24,
-        height:24,
+        width:5,
+        height:5,
         borderRadius:5,
         backgroundColor:'#55BCF6',
         opacity:0.5,
@@ -46,12 +48,13 @@ const styles = StyleSheet.create({
     },
     taskText:{
         maxWidth:"80%",
+        textTransform:'capitalize',
     },
     circular:{
         width:12,
         height:12,
         borderRadius:5,
-        borderColor:'#55BCF6',
+        borderColor:'#ff4d8e',
         borderWidth:2,
     },
 });

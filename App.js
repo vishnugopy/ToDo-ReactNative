@@ -1,18 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React , { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View , Platform, TouchableOpacity, Keyboard } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View , Platform, TouchableOpacity, Keyboard ,Image ,Icon} from 'react-native';
 import Task from './components/Task';
-
+import imag from './assets/plus.png';
 
 export default function App() {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
-  
+
   const handleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
-    setTask(null);
+    if (task === '' || task === null) {
+    alert("Please add a task");
+    }else{
+      Keyboard.dismiss();
+      setTaskItems([...taskItems, task]);
+      setTask('');
   }
+}
 
   const handleDeleteTask = (index) => {
   let newTaskItems = [...taskItems];
@@ -26,9 +30,10 @@ export default function App() {
       <View style={styles.wrapper}>
 
         <Text style={styles.headerTitle}>
-          Today's Tasks
+          ToDo
         </Text>
 
+        <Image source={imag} />
         <View style={styles.items}>
             {
               taskItems.map((item, index) => {
@@ -46,11 +51,11 @@ export default function App() {
     </View>
 
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.textform}>
-      <TextInput style={styles.input} placeholder=" Add a task " onChangeText={text => setTask(text)} value={task} />
+      <TextInput style={styles.input} maxLength={40} placeholder=" Add a task " onChangeText={text => setTask(text)} value={task} />
       <TouchableOpacity style={styles.button} onPress={handleAddTask}>
 
         <View style={styles.buttonholder} >
-          <Text style={styles.buttonText}>+</Text>
+           <Text style={styles.buttonText}>+</Text>
         </View>
       </TouchableOpacity>
     </KeyboardAvoidingView>
@@ -70,6 +75,7 @@ const styles = StyleSheet.create({
   headerTitle:{
     fontSize:20,
     fontWeight:'bold',
+    textAlign:'center',
   },
   items:{
     marginTop:10,
@@ -88,13 +94,11 @@ const styles = StyleSheet.create({
   input:{
     height:60,
     paddingHorizontal:20,
-
     width:"75%",
     backgroundColor:'#fff',
     borderRadius:15,
     borderColor:'#a6c9ff',
     borderWidth:2,
-    outline:0, 
     },
   button:{
     width:50,
@@ -107,13 +111,14 @@ const styles = StyleSheet.create({
     borderWidth:2,
   },
   buttonholder:{
-    textAlign:'center',
     alignItems:'center',
     justifyContent:'center',
   },
   buttonText:{
-    fontSize:20,
     fontWeight:'bold',
+    fontSize:29,
+    color:'#a6c9ff',
   },
+  
   
   });

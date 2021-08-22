@@ -1,10 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React , { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View , Platform, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View , Platform, TouchableOpacity, Keyboard } from 'react-native';
 import Task from './components/Task';
 
 
 export default function App() {
+  const [task, setTask] = useState('');
+  const [taskItems, setTaskItems] = useState([]);
+  
+  const handleAddTask = () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task]);
+    setTask(null);
+  }
+
+  const handleDeleteTask = (index) => {
+  let newTaskItems = [...taskItems];
+  newTaskItems.splice(index, 1);
+  setTaskItems(newTaskItems);
+  }
+
   return (
     <View style={styles.container}> 
 
@@ -15,17 +30,26 @@ export default function App() {
         </Text>
 
         <View style={styles.items}>
-            < Task text={'suoidhsuoihduhs'} />
-            < Task text={'Task 2'} />
+            {
+              taskItems.map((item, index) => {
+                return (
+                  <TouchableOpacity key={index} onPress={() => handleDeleteTask(index)}>
+                    <Task key={index} text={item} />
+                  </TouchableOpacity>
+                )
+                
+                
+              })
+            }
         </View>
 
     </View>
 
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.textform}>
-      <TextInput style={styles.input} placeholder=" Add a task " />
-      <TouchableOpacity style={styles.button}>
+      <TextInput style={styles.input} placeholder=" Add a task " onChangeText={text => setTask(text)} value={task} />
+      <TouchableOpacity style={styles.button} onPress={handleAddTask}>
 
-        <View style={styles.buttonholder}>
+        <View style={styles.buttonholder} >
           <Text style={styles.buttonText}>+</Text>
         </View>
       </TouchableOpacity>
@@ -55,7 +79,7 @@ const styles = StyleSheet.create({
     bottom:30,
     width:'100%',
     flexDirection:'row',
-    justifyContent:'center',
+    justifyContent:'space-around',
     alignItems:'center',
     outline:0,
     paddingHorizontal:10,
@@ -64,14 +88,14 @@ const styles = StyleSheet.create({
   input:{
     height:60,
     paddingHorizontal:20,
-    paddingVertical:30,
-    width:"85%",
+
+    width:"75%",
     backgroundColor:'#fff',
-    borderRadius:60,
-    borderColor:'#E8EAED',
-    borderWidth:10,
+    borderRadius:15,
+    borderColor:'#a6c9ff',
+    borderWidth:2,
     outline:0, 
-  },
+    },
   button:{
     width:50,
     height:50,
@@ -79,6 +103,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
     justifyContent:'center',
     alignItems:'center',
+    borderColor:'#a6c9ff',
+    borderWidth:2,
   },
   buttonholder:{
     textAlign:'center',
@@ -86,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   buttonText:{
-    fontSize:30,
+    fontSize:20,
     fontWeight:'bold',
   },
   

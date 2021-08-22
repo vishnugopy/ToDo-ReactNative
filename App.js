@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import React , { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View , Platform, TouchableOpacity, Keyboard ,Image ,Icon} from 'react-native';
 import Task from './components/Task';
-import imag from './assets/plus.png';
 
 export default function App() {
   const [task, setTask] = useState('');
@@ -32,10 +31,11 @@ export default function App() {
         <Text style={styles.headerTitle}>
           ToDo
         </Text>
-
-        <Image source={imag} />
         <View style={styles.items}>
             {
+              taskItems.length === 0 ? <Text style={styles.error}>
+              You do not have any tasks at the momentand you can add it by typing in the field below.
+            </Text> :
               taskItems.map((item, index) => {
                 return (
                   <TouchableOpacity key={index} onPress={() => handleDeleteTask(index)}>
@@ -77,6 +77,13 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     textAlign:'center',
   },
+  error:{
+    fontSize:20,
+    color:'red',
+    textAlign:'center',
+    opacity:0.3,
+    marginVertical:250,
+  },  
   items:{
     marginTop:10,
   },
@@ -87,7 +94,6 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-around',
     alignItems:'center',
-    outline:0,
     paddingHorizontal:10,
     
   },

@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     },
     taskText:{
         maxWidth:"80%",
-        
     },
     circular:{
         width:12,

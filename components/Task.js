@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom:10,
         marginTop:10,
+        width:"100%",
     },
     itemleft:{
         flexDirection:'row',
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     },
     taskText:{
         maxWidth:"80%",
+        
     },
     circular:{
         width:12,

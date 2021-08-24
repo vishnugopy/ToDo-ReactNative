@@ -7,6 +7,8 @@ export default function App() {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
 
+
+
   const handleAddTask = () => {
     if (task === '' || task === null) {
     alert("Please add a task");
@@ -14,7 +16,6 @@ export default function App() {
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
       setTask('');
-      localStorage.setItem('taskItems', JSON.stringify(taskItems));
     }
 }
 
@@ -40,7 +41,7 @@ export default function App() {
               taskItems.map((item, index) => {
                 return (
                   <TouchableOpacity key={index} onPress={() => handleDeleteTask(index)}>
-                    <Task key={index} text={item} />
+                    <Task  text={item} />
                   </TouchableOpacity>
                 )
                 
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     overflow:'scroll'
   },
   textform:{
-    position:'fixed',
+    position:'absolute',
     backgroundColor:'#E8EAED',
     padding:10,
     bottom:0,

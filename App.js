@@ -14,7 +14,8 @@ export default function App() {
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
       setTask('');
-  }
+      localStorage.setItem('taskItems', JSON.stringify(taskItems));
+    }
 }
 
   const handleDeleteTask = (index) => {
@@ -31,10 +32,10 @@ export default function App() {
         <Text style={styles.headerTitle}>
           ToDo
         </Text>
-        <View style={styles.items}>
+        <View style={styles.items}> 
             {
               taskItems.length === 0 ? <Text style={styles.error}>
-              You do not have any tasks at the momentand you can add it by typing in the field below.
+              You do not have any tasks at the moment and you can add it by typing in the field below.
             </Text> :
               taskItems.map((item, index) => {
                 return (
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#E8EAED',
+    position: 'relative',
   },
   wrapper:{
     paddingTop:50,
@@ -86,10 +88,14 @@ const styles = StyleSheet.create({
   },  
   items:{
     marginTop:10,
+    marginBottom:100,
+    overflow:'scroll'
   },
   textform:{
-    position:'absolute',
-    bottom:30,
+    position:'fixed',
+    backgroundColor:'#E8EAED',
+    padding:10,
+    bottom:0,
     width:'100%',
     flexDirection:'row',
     justifyContent:'space-around',

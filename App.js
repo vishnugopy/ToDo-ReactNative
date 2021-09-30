@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React , { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View , Platform, TouchableOpacity, Keyboard ,Image ,Icon} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet,ScrollView, Text, TextInput, View , Platform, TouchableOpacity, Keyboard ,Image ,Icon} from 'react-native';
 import Task from './components/Task';
 
 export default function App() {
@@ -33,7 +33,7 @@ export default function App() {
         <Text style={styles.headerTitle}>
           ToDo
         </Text>
-        <View style={styles.items}> 
+        <ScrollView style={styles.items}> 
             {
               taskItems.length === 0 ? <Text style={styles.error}>
               You do not have any tasks at the moment and you can add it by typing in the field below.
@@ -44,11 +44,9 @@ export default function App() {
                     <Task  text={item} />
                   </TouchableOpacity>
                 )
-                
-                
               })
             }
-        </View>
+        </ScrollView>
 
     </View>
 
@@ -68,7 +66,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
+    backgroundColor: '#171717',
     position: 'relative',
   },
   wrapper:{
@@ -76,27 +74,30 @@ const styles = StyleSheet.create({
     paddingHorizontal:20,
   },
   headerTitle:{
-    fontSize:20,
-    fontWeight:'bold',
+    color:'#fff',
+    fontSize:25,
+    fontWeight:'600',
     textAlign:'center',
   },
   error:{
     fontSize:20,
-    color:'red',
+    color:'#F43B86',
     textAlign:'center',
-    opacity:0.3,
+    opacity:0.6,
     marginVertical:250,
+   
   },  
   items:{
     marginTop:10,
-    marginBottom:100,
-    overflow:'scroll'
+    marginBottom:120,
+    paddingBottom:200,
   },
   textform:{
     position:'absolute',
-    backgroundColor:'#E8EAED',
-    padding:10,
     bottom:0,
+    zIndex:999,
+    backgroundColor:'#000',
+    padding:10,
     width:'100%',
     flexDirection:'row',
     justifyContent:'space-around',
@@ -109,15 +110,15 @@ const styles = StyleSheet.create({
     paddingHorizontal:20,
     width:"75%",
     backgroundColor:'#fff',
-    borderRadius:15,
-    borderColor:'#a6c9ff',
+    borderRadius:10,
+    borderColor:'#082032',
     borderWidth:2,
     },
   button:{
-    width:50,
-    height:50,
-    borderRadius:50,
-    backgroundColor:'#fff',
+    width:"23%",
+    height:60,
+    borderRadius:10,
+    backgroundColor:'#082032',
     justifyContent:'center',
     alignItems:'center',
     borderColor:'#a6c9ff',
@@ -129,8 +130,8 @@ const styles = StyleSheet.create({
   },
   buttonText:{
     fontWeight:'bold',
-    fontSize:29,
-    color:'#a6c9ff',
+    fontSize:40,
+    color:'#ffffff',
   },
   
   

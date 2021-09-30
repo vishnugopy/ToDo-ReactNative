@@ -19,11 +19,10 @@ import { useFonts } from 'expo-font';
 export default function App() {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
-
+  console.log(taskItems);
   const [loaded] = useFonts({
     Montserrat: require('./assets/fonts/Montserrat-Regular.ttf'),
   });
-  
   if (!loaded) {
     return null;
   }
@@ -36,6 +35,7 @@ export default function App() {
       setTaskItems([...taskItems, task]);
       setTask("");
     }
+    
   };
 
   const handleDeleteTask = (index) => {

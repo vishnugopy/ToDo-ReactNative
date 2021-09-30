@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   Keyboard,
   Image,
-  AsyncStorage
 } from "react-native";
 import Task from "./components/Task";
 import AddIcon from "./assets/addico.png";

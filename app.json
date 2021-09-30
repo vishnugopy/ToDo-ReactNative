@@ -2,7 +2,7 @@
   "expo": {
     "name": "ToDo",
     "slug": "ToDo",
-    "version": "2.1",
+    "version": "3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,7 +25,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.stupidversion.todo",
-      "versionCode": 2.1 ,
+      "versionCode": 3 ,
       "permissions" : []
     },
     "web": {

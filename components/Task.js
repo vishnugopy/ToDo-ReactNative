@@ -1,6 +1,6 @@
 import React from 'react';
-import { View , Text , TouchableOpacity , StyleSheet , Image , Dimensions , TouchableHighlight , TouchableWithoutFeedback , ScrollView , Alert } from 'react-native';
-
+import { View , Text , StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
 
 
 const Task = (props) => {
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
         marginRight:10,
     },
     taskText:{
+        fontFamily: "Montserrat",
         maxWidth:"99%",
         textTransform:'capitalize',
     },

@@ -28,9 +28,6 @@
       "versionCode": 2 ,
       "permissions" : []
     },
-    "rnpm": {
-      "assets": ["assets/fonts/"]
-     },
     "web": {
       "favicon": "./assets/favicon.png"
     }

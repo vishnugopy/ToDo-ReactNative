@@ -13,11 +13,20 @@ import {
   Image,
 } from "react-native";
 import Task from "./components/Task";
-import AddIcon from "./assets/addico.svg";
+import AddIcon from "./assets/addico.png";
+import { useFonts } from 'expo-font';
 
 export default function App() {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
+
+  const [loaded] = useFonts({
+    Montserrat: require('./assets/fonts/Montserrat-Regular.ttf'),
+  });
+  
+  if (!loaded) {
+    return null;
+  }
 
   const handleAddTask = () => {
     if (task === "" || task === null) {
@@ -98,12 +107,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   headerTitle: {
+    fontFamily: "Montserrat",
     color: "#fff",
     fontSize: 25,
     fontWeight: "600",
     textAlign: "center",
   },
   error: {
+    fontFamily: "Montserrat",
     fontSize: 20,
     color: "#F43B86",
     textAlign: "center",
@@ -128,6 +139,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   input: {
+    fontFamily: "Montserrat",
     height: 60,
     paddingHorizontal: 20,
     width: "75%",
@@ -140,7 +152,7 @@ const styles = StyleSheet.create({
     width: "23%",
     height: 60,
     borderRadius: 10,
-    backgroundColor: "#082032",
+    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
     borderColor: "#a6c9ff",
@@ -148,10 +160,5 @@ const styles = StyleSheet.create({
   buttonholder: {
     alignItems: "center",
     justifyContent: "center",
-  },
-  buttonText: {
-    fontWeight: "bold",
-    fontSize: 40,
-    color: "#ffffff",
   }
 });

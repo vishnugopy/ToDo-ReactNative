@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         marginRight:10,
     },
     taskText:{
-        maxWidth:"80%",
+        maxWidth:"99%",
         textTransform:'capitalize',
     },
     circular:{

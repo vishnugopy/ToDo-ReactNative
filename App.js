@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -14,18 +14,50 @@ import {
 } from "react-native";
 import Task from "./components/Task";
 import AddIcon from "./assets/addico.png";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
-  console.log(taskItems);
+  const [Data, setData] = useState([]);
+  
+  useEffect(() => {
+    getAllData();
+  }, []);
+
+  const getAllData = () => {
+    try {
+      const myArray = AsyncStorage.getItem("@MySuperStore");
+      if (myArray !== null) {
+        try {
+        setData(JSON.parse(myArray));
+        } catch (e) {
+          setData(myArray);
+        }
+      }
+      setTaskItems(Data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [loaded] = useFonts({
-    Montserrat: require('./assets/fonts/Montserrat-Regular.ttf'),
+    Montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
   });
   if (!loaded) {
     return null;
   }
+
+  const updateTask = () => {
+    try {
+      AsyncStorage.setItem("@MySuperStore", JSON.stringify(taskItems));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
   const handleAddTask = () => {
     if (task === "" || task === null) {
@@ -33,15 +65,16 @@ export default function App() {
     } else {
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
+      updateTask();
       setTask("");
     }
-    
   };
 
   const handleDeleteTask = (index) => {
     let newTaskItems = [...taskItems];
     newTaskItems.splice(index, 1);
     setTaskItems(newTaskItems);
+    updateTask();
   };
 
   return (
@@ -160,5 +193,5 @@ const styles = StyleSheet.create({
   buttonholder: {
     alignItems: "center",
     justifyContent: "center",
-  }
+  },
 });

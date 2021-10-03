@@ -21,22 +21,23 @@ export default function App() {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
   const [Data, setData] = useState([]);
-  
+
   useEffect(() => {
+    updateTask();
     getAllData();
   }, []);
 
   const getAllData = () => {
     try {
       const myArray = AsyncStorage.getItem("@MySuperStore");
-      if (myArray !== null) {
-        try {
-        setData(JSON.parse(myArray));
-        } catch (e) {
-          setData(myArray);
-        }
-      }
-      setTaskItems(Data)
+      setData(myArray);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateTask = () => {
+    try {
+      AsyncStorage.setItem("@MySuperStore", JSON.stringify(taskItems));
     } catch (error) {
       console.log(error);
     }
@@ -49,23 +50,14 @@ export default function App() {
     return null;
   }
 
-  const updateTask = () => {
-    try {
-      AsyncStorage.setItem("@MySuperStore", JSON.stringify(taskItems));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
-
   const handleAddTask = () => {
+    updateTask();
     if (task === "" || task === null) {
       alert("Please add a task");
     } else {
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
-      updateTask();
+      
       setTask("");
     }
   };
@@ -74,7 +66,6 @@ export default function App() {
     let newTaskItems = [...taskItems];
     newTaskItems.splice(index, 1);
     setTaskItems(newTaskItems);
-    updateTask();
   };
 
   return (

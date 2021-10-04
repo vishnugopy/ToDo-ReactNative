@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import Task from "./components/Task";
 import AddIcon from "./assets/addico.png";
+import ImgError from "./assets/error.png";
 import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -21,9 +22,9 @@ export default function App() {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
   const [Data, setData] = useState([]);
+  console.log(Data);
 
   useEffect(() => {
-    updateTask();
     getAllData();
   }, []);
 
@@ -51,13 +52,12 @@ export default function App() {
   }
 
   const handleAddTask = () => {
-    updateTask();
     if (task === "" || task === null) {
       alert("Please add a task");
     } else {
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
-      
+      updateTask();
       setTask("");
     }
   };
@@ -66,6 +66,7 @@ export default function App() {
     let newTaskItems = [...taskItems];
     newTaskItems.splice(index, 1);
     setTaskItems(newTaskItems);
+    updateTask();
   };
 
   return (
@@ -74,10 +75,16 @@ export default function App() {
         <Text style={styles.headerTitle}>ToDo</Text>
         <ScrollView style={styles.items}>
           {taskItems.length === 0 ? (
-            <Text style={styles.error}>
-              You do not have any tasks at the moment and you can add it by
-              typing in the field below.
-            </Text>
+            <Image
+              style={{
+                width: "100%",
+                height: 150,
+                resizeMode: "cover",
+                opacity: 0.2,
+                marginVertical: 200,
+              }}
+              source={ImgError}
+            />
           ) : (
             taskItems.map((item, index) => {
               return (
@@ -136,14 +143,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "600",
     textAlign: "center",
-  },
-  error: {
-    fontFamily: "Montserrat",
-    fontSize: 20,
-    color: "#F43B86",
-    textAlign: "center",
-    opacity: 0.6,
-    marginVertical: 250,
   },
   items: {
     marginTop: 10,

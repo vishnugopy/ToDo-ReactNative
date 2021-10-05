@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import {
   KeyboardAvoidingView,
@@ -22,7 +21,7 @@ export default function App() {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
   const [Data, setData] = useState([]);
-  console.log(Data);
+ 
 
   useEffect(() => {
     getAllData();
@@ -36,12 +35,27 @@ export default function App() {
       console.log(error);
     }
   };
-  const updateTask = () => {
-    try {
-      AsyncStorage.setItem("@MySuperStore", JSON.stringify(taskItems));
-    } catch (error) {
-      console.log(error);
+
+  const updateTask = (todo) => {
+    let todos ;
+    if(AsyncStorage.getItem("@MySuperStore") === null){
+      todos = [];
     }
+    else{
+      try {
+        todos = AsyncStorage.getItem("@MySuperStore");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    // todos.push(todo);
+    console.log(todo);
+    AsyncStorage.setItem("@MySuperStore", JSON.stringify(todos));
+    // try{
+    //   AsyncStorage.setItem("@MySuperStore", JSON.stringify(taskItems));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const [loaded] = useFonts({
@@ -55,9 +69,9 @@ export default function App() {
     if (task === "" || task === null) {
       alert("Please add a task");
     } else {
+      updateTask(task);
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
-      updateTask();
       setTask("");
     }
   };
@@ -66,7 +80,6 @@ export default function App() {
     let newTaskItems = [...taskItems];
     newTaskItems.splice(index, 1);
     setTaskItems(newTaskItems);
-    updateTask();
   };
 
   return (

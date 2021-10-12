@@ -22,31 +22,28 @@ export default function App() {
   const [taskItems, setTaskItems] = useState([]);
  
 
-  React.useEffect(() => {
-    SaveToDevice(taskItems);
-  }, [taskItems]);
-
 
   React.useEffect(() => {
     GetToDevice();
   }, []);
 
-
-  GetToDevice
+  React.useEffect(() => {
+    SaveToDevice(taskItems);
+  }, [taskItems]);
 
   const SaveToDevice = async taskItems => {
     try {
       const stringifyTodos = JSON.stringify(taskItems);
-      console.log(stringifyTodos);
       await AsyncStorage.setItem("@todos", stringifyTodos);
     } catch (error) {
       console.log(error);
     }
   }
 
-  const GetToDevice = async taskItems => {
+  const GetToDevice = async () => {
     try {
       const todos = await AsyncStorage.getItem("@todos");
+      console.log(todos);
      if (todos != null) {
         setTaskItems(JSON.parse(todos));
       }

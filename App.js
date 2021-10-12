@@ -20,43 +20,41 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function App() {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
-  const [Data, setData] = useState([]);
  
 
-  useEffect(() => {
-    getAllData();
+  React.useEffect(() => {
+    SaveToDevice(taskItems);
+  }, [taskItems]);
+
+
+  React.useEffect(() => {
+    GetToDevice();
   }, []);
 
-  const getAllData = () => {
+
+  GetToDevice
+
+  const SaveToDevice = async taskItems => {
     try {
-      const myArray = AsyncStorage.getItem("@MySuperStore");
-      setData(myArray);
+      const stringifyTodos = JSON.stringify(taskItems);
+      console.log(stringifyTodos);
+      await AsyncStorage.setItem("@todos", stringifyTodos);
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
-  const updateTask = (todo) => {
-    let todos ;
-    if(AsyncStorage.getItem("@MySuperStore") === null){
-      todos = [];
-    }
-    else{
-      try {
-        todos = AsyncStorage.getItem("@MySuperStore");
-      } catch (error) {
-        console.log(error);
+  const GetToDevice = async taskItems => {
+    try {
+      const todos = await AsyncStorage.getItem("@todos");
+     if (todos != null) {
+        setTaskItems(JSON.parse(todos));
       }
+    } catch (error) {
+      console.log(error);
     }
-    // todos.push(todo);
-    console.log(todo);
-    AsyncStorage.setItem("@MySuperStore", JSON.stringify(todos));
-    // try{
-    //   AsyncStorage.setItem("@MySuperStore", JSON.stringify(taskItems));
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  };
+  }
+  
 
   const [loaded] = useFonts({
     Montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
@@ -69,7 +67,6 @@ export default function App() {
     if (task === "" || task === null) {
       alert("Please add a task");
     } else {
-      updateTask(task);
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
       setTask("");

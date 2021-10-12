@@ -113,7 +113,7 @@ export default function App() {
       >
         <TextInput
           style={styles.input}
-          maxLength={40}
+          maxLength={500}
           placeholder=" Add a task "
           onChangeText={(text) => setTask(text)}
           value={task}

@@ -20,8 +20,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function App() {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
- 
-
 
   React.useEffect(() => {
     GetToDevice();
@@ -31,27 +29,25 @@ export default function App() {
     SaveToDevice(taskItems);
   }, [taskItems]);
 
-  const SaveToDevice = async taskItems => {
+  const SaveToDevice = async (taskItems) => {
     try {
       const stringifyTodos = JSON.stringify(taskItems);
       await AsyncStorage.setItem("@todos", stringifyTodos);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const GetToDevice = async () => {
     try {
       const todos = await AsyncStorage.getItem("@todos");
-      console.log(todos);
-     if (todos != null) {
+      if (todos != null) {
         setTaskItems(JSON.parse(todos));
       }
     } catch (error) {
       console.log(error);
     }
-  }
-  
+  };
 
   const [loaded] = useFonts({
     Montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
@@ -95,11 +91,11 @@ export default function App() {
           ) : (
             taskItems.map((item, index) => {
               return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => handleDeleteTask(index)}
-                >
-                  <Task text={item} />
+                <TouchableOpacity key={index}>
+                  <Task
+                    text={item}
+                    onDelete={() => handleDeleteTask(index)}
+                  />
                 </TouchableOpacity>
               );
             })
@@ -113,7 +109,7 @@ export default function App() {
       >
         <TextInput
           style={styles.input}
-          maxLength={500}
+          maxLength={200}
           placeholder=" Add a task "
           onChangeText={(text) => setTask(text)}
           value={task}

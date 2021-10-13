@@ -1,10 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 
 const Task = (props) => {
   return (
     <View style={styles.item}>
+      <View style={styles.dash}></View>
       <Text style={styles.taskText}>{props.text}</Text>
+      <Button title="Delete" onPress={props.onDelete} color="red" />
     </View>
   );
 };
@@ -14,12 +16,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column",
+    alignItems: "flex-start",
     justifyContent: "space-between",
     marginBottom: 10,
     marginTop: 10,
     width: "100%",
+  },
+  dash: {
+    width: "40%",
+    marginVertical: 10,
+    height: 10,
+    backgroundColor: "#a6c9ff",
+    borderRadius: 5,
   },
   taskText: {
     fontFamily: "Montserrat",

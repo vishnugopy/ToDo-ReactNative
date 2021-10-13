@@ -6,7 +6,9 @@ const Task = (props) => {
     <View style={styles.item}>
       <View style={styles.dash}></View>
       <Text style={styles.taskText}>{props.text}</Text>
-      <Button title="Delete" onPress={props.onDelete} color="red" />
+      <Text style={styles.delete} onPress={props.onDelete}>
+        Done
+      </Text>
     </View>
   );
 };
@@ -33,7 +35,15 @@ const styles = StyleSheet.create({
   taskText: {
     fontFamily: "Montserrat",
     textTransform: "capitalize",
-  }
+  },
+  delete: {
+    backgroundColor: "#a6c9ff",
+    color: "#fff",
+    borderRadius: 5,
+    alignSelf: "flex-end",
+    padding: 10,
+    marginTop: 25,
+  },
 });
 
 export default Task;

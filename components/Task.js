@@ -6,6 +6,9 @@ const Task = (props) => {
     <View style={styles.item}>
       <View style={styles.dash}></View>
       <Text style={styles.taskText}>{props.text}</Text>
+
+
+      <View style={styles.dash}></View>
       <Text style={styles.delete} onPress={props.onDelete}>
         Done
       </Text>
